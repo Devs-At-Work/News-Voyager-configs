@@ -1,0 +1,49 @@
+# Microservice: Business Rollout
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: business-rollout
+  namespace: news-voyager
+spec:
+  replicas: 2
+  strategy:
+    canary:
+      steps:
+        - setWeight: 20
+        - pause: {}
+        - setWeight: 40
+        - pause: { duration: 15 }
+        - setWeight: 60
+        - pause: { duration: 15 }
+        - setWeight: 80
+        - pause: { duration: 15 }
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: business-rollout
+  template:
+    metadata:
+      labels:
+        app: business-rollout
+    spec:
+      containers:
+        - name: business
+          image: deepanshurawat6/microservices-business:1.0.0
+          resources:
+            requests:
+              cpu: 200m
+              memory: 0.3Gi
+            limits:
+              cpu: 400m
+              memory: 0.6Gi
+          ports:
+            - containerPort: 3010
+          env:
+            - name: BACKEND_URL
+              value: "http://backend-rollout-service:3001"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3010
+            initialDelaySeconds: 10
+            periodSeconds: 5

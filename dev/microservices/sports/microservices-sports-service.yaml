@@ -1,0 +1,13 @@
+# Microservice: Sports Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: sports-service
+  namespace: news-voyager
+spec:
+  selector:
+    app: sports
+  ports:
+    - port: 3014
+      targetPort: 3014
+  type: ClusterIP

@@ -1,0 +1,13 @@
+# Microservice: Technology Rollout Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: technology-rollout-service
+  namespace: news-voyager
+spec:
+  ports:
+    - port: 3015
+      targetPort: 3015
+  selector:
+    app: technology-rollout
+  type: ClusterIP

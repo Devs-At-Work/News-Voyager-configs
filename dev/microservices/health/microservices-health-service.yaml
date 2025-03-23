@@ -1,0 +1,13 @@
+# Microservice: Health Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: health-service
+  namespace: news-voyager
+spec:
+  selector:
+    app: health
+  ports:
+    - port: 3012
+      targetPort: 3012
+  type: ClusterIP

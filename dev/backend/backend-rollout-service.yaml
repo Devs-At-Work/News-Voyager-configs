@@ -1,0 +1,13 @@
+# Backend Rollout Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-rollout-service
+  namespace: news-voyager
+spec:
+  ports:
+    - port: 3001
+      targetPort: 3001
+  selector:
+    app: backend-rollout
+  type: ClusterIP

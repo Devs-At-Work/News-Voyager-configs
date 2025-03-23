@@ -1,0 +1,39 @@
+# Microservice: Entertainment Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: entertainment-deployment
+  namespace: news-voyager
+  labels:
+    app: entertainment
+spec:
+  selector:
+    matchLabels:
+      app: entertainment
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: entertainment
+    spec:
+      containers:
+        - name: entertainment
+          image: deepanshurawat6/microservices-entertainment:1.0.0
+          resources:
+            requests:
+              cpu: 200m
+              memory: 0.3Gi
+            limits:
+              cpu: 400m
+              memory: 0.6Gi
+          ports:
+            - containerPort: 3011
+          env:
+            - name: BACKEND_URL
+              value: "http://backend-service:3001"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3011
+            initialDelaySeconds: 10
+            periodSeconds: 5

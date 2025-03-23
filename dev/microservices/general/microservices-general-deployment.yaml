@@ -1,0 +1,39 @@
+# Microservice: General Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: general-deployment
+  namespace: news-voyager
+  labels:
+    app: general
+spec:
+  selector:
+    matchLabels:
+      app: general
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: general
+    spec:
+      containers:
+        - name: general
+          image: deepanshurawat6/microservices-general:1.0.0
+          resources:
+            requests:
+              cpu: 200m
+              memory: 0.3Gi
+            limits:
+              cpu: 400m
+              memory: 0.6Gi
+          ports:
+            - containerPort: 3016
+          env:
+            - name: BACKEND_URL
+              value: "http://backend-service:3001"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3016
+            initialDelaySeconds: 10
+            periodSeconds: 5

@@ -1,0 +1,13 @@
+# Microservice: General Rollout Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: general-rollout-service
+  namespace: news-voyager
+spec:
+  ports:
+    - port: 3016
+      targetPort: 3016
+  selector:
+    app: general-rollout
+  type: ClusterIP

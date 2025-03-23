@@ -1,0 +1,13 @@
+# Microservice: Health Rollout Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: health-rollout-service
+  namespace: news-voyager
+spec:
+  ports:
+    - port: 3012
+      targetPort: 3012
+  selector:
+    app: health-rollout
+  type: ClusterIP

@@ -1,0 +1,13 @@
+# Microservice: Science Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: science-service
+  namespace: news-voyager
+spec:
+  selector:
+    app: science
+  ports:
+    - port: 3013
+      targetPort: 3013
+  type: ClusterIP

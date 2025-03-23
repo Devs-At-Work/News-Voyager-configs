@@ -1,0 +1,49 @@
+# Microservice: Health Rollout
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: health-rollout
+  namespace: news-voyager
+spec:
+  replicas: 2
+  strategy:
+    canary:
+      steps:
+        - setWeight: 20
+        - pause: {}
+        - setWeight: 40
+        - pause: { duration: 15 }
+        - setWeight: 60
+        - pause: { duration: 15 }
+        - setWeight: 80
+        - pause: { duration: 15 }
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: health-rollout
+  template:
+    metadata:
+      labels:
+        app: health-rollout
+    spec:
+      containers:
+        - name: health
+          image: deepanshurawat6/microservices-health:1.0.0
+          resources:
+            requests:
+              cpu: 200m
+              memory: 0.3Gi
+            limits:
+              cpu: 400m
+              memory: 0.6Gi
+          ports:
+            - containerPort: 3012
+          env:
+            - name: BACKEND_URL
+              value: "http://backend-rollout-service:3001"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3012
+            initialDelaySeconds: 10
+            periodSeconds: 5

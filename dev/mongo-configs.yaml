@@ -1,0 +1,21 @@
+# ConfigMap for MongoDB Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongodb-config
+  namespace: news-voyager
+data:
+  retryWrites: "true"
+  w: "majority"
+
+---
+# Secret for MongoDB Credentials
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongodb-credentials
+  namespace: news-voyager
+type: Opaque
+data:
+  # Base64 encoded - replace with actual encoded values
+  uri: bW9uZ29kYitzcnY6Ly9hbWFuZ2FuZGhpMTY0OkY3bm8wOExIZHdhWktQTXRAY2x1c3RlcjAudmp2eXQubW9uZ29kYi5uZXQvP3JldHJ5V3JpdGVzPXRydWUmdz1tYWpvcml0eSZhcHBOYW1lPUNsdXN0ZXIw

@@ -1,0 +1,13 @@
+# Microservice: Entertainment Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: entertainment-service
+  namespace: news-voyager
+spec:
+  selector:
+    app: entertainment
+  ports:
+    - port: 3011
+      targetPort: 3011
+  type: ClusterIP

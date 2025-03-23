@@ -1,0 +1,13 @@
+# Microservice: Science Rollout Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: science-rollout-service
+  namespace: news-voyager
+spec:
+  ports:
+    - port: 3013
+      targetPort: 3013
+  selector:
+    app: science-rollout
+  type: ClusterIP

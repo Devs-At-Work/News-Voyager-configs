@@ -1,0 +1,13 @@
+# Microservice: General Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: general-service
+  namespace: news-voyager
+spec:
+  selector:
+    app: general
+  ports:
+    - port: 3016
+      targetPort: 3016
+  type: ClusterIP

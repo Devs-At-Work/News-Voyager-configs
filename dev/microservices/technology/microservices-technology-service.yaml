@@ -1,0 +1,13 @@
+# Microservice: Technology Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: technology-service
+  namespace: news-voyager
+spec:
+  selector:
+    app: technology
+  ports:
+    - port: 3015
+      targetPort: 3015
+  type: ClusterIP

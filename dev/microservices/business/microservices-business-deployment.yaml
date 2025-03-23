@@ -1,0 +1,39 @@
+# Microservice: Business Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: business-deployment
+  namespace: news-voyager
+  labels:
+    app: business
+spec:
+  selector:
+    matchLabels:
+      app: business
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: business
+    spec:
+      containers:
+        - name: business
+          image: deepanshurawat6/microservices-business:1.0.0
+          resources:
+            requests:
+              cpu: 200m
+              memory: 0.3Gi
+            limits:
+              cpu: 400m
+              memory: 0.6Gi
+          ports:
+            - containerPort: 3010
+          env:
+            - name: BACKEND_URL
+              value: "http://backend-service:3001"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3010
+            initialDelaySeconds: 10
+            periodSeconds: 5

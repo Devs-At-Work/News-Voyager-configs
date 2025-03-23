@@ -1,0 +1,39 @@
+# Microservice: Technology Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: technology-deployment
+  namespace: news-voyager
+  labels:
+    app: technology
+spec:
+  selector:
+    matchLabels:
+      app: technology
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: technology
+    spec:
+      containers:
+        - name: technology
+          image: deepanshurawat6/microservices-technology:1.0.0
+          resources:
+            requests:
+              cpu: 200m
+              memory: 0.3Gi
+            limits:
+              cpu: 400m
+              memory: 0.6Gi
+          ports:
+            - containerPort: 3015
+          env:
+            - name: BACKEND_URL
+              value: "http://backend-service:3001"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3015
+            initialDelaySeconds: 10
+            periodSeconds: 5

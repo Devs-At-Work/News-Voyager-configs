@@ -1,0 +1,13 @@
+# Microservice: Sports Rollout Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: sports-rollout-service
+  namespace: news-voyager
+spec:
+  ports:
+    - port: 3014
+      targetPort: 3014
+  selector:
+    app: sports-rollout
+  type: ClusterIP

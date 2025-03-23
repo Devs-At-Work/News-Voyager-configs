@@ -1,0 +1,39 @@
+# Microservice: Science Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: science-deployment
+  namespace: news-voyager
+  labels:
+    app: science
+spec:
+  selector:
+    matchLabels:
+      app: science
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: science
+    spec:
+      containers:
+        - name: science
+          image: deepanshurawat6/microservices-science:1.0.0
+          resources:
+            requests:
+              cpu: 200m
+              memory: 0.3Gi
+            limits:
+              cpu: 400m
+              memory: 0.6Gi
+          ports:
+            - containerPort: 3013
+          env:
+            - name: BACKEND_URL
+              value: "http://backend-service:3001"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3013
+            initialDelaySeconds: 10
+            periodSeconds: 5
