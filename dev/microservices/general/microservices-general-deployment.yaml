@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: general
-          image: deepanshurawat6/microservices-general:1.0.0-2
+          image: deepanshurawat6/microservices-general:1.0.0-3
           resources:
             requests:
               cpu: 200m
