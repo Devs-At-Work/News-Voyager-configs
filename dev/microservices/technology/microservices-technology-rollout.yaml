@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: technology
-          image: deepanshurawat6/microservices-technology:1.0.0-8
+          image: deepanshurawat6/microservices-technology:1.0.0-9
           resources:
             requests:
               cpu: 200m
