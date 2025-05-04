@@ -7,9 +7,7 @@ data:
   MONGO_HOST: "mongodb.news-voyager.svc.cluster.local"
   MONGO_PORT: "27017"
   MONGO_DB: "newsVoyager"
-
 --- 
-
 apiVersion: v1
 kind: Secret
 metadata:
@@ -19,29 +17,21 @@ type: Opaque
 data:
   MONGO_USER: YWRtaW4=  # base64 encoded username if needed
   MONGO_PASSWORD: cGFzc3dvcmQ= # base64 encoded password if needed
-
---- 
-
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: mongodb-local-pv
-  namespace: news-voyager
-spec:
-  capacity:
-    storage: 3Gi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  hostPath:
-    path: /data/mongodb
-
 ---
-
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: mongodb-sc
+provisioner: ebs.csi.aws.com
+volumeBindingMode: WaitForFirstConsumer
+parameters:
+  type: gp3
+--- 
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mongodb
+  namespace: news-voyager
 spec:
   replicas: 1
   serviceName: mongodb
@@ -50,7 +40,6 @@ spec:
       app: mongodb
   template:
     metadata:
-      name: mongodb
       labels:
         app: mongodb
     spec:
@@ -74,21 +63,28 @@ spec:
                 secretKeyRef:
                   name: backend-secrets
                   key: MONGO_PASSWORD
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "300m"
   volumeClaimTemplates:
     - metadata:
         name: mongo-storage
       spec:
         accessModes: ["ReadWriteOnce"]
+        storageClassName: mongodb-sc
         resources:
           requests:
             storage: 3Gi
-
 --- 
-
 apiVersion: v1
 kind: Service
 metadata:
   name: mongodb
+  namespace: news-voyager
 spec:
   selector:
     app: mongodb
