@@ -22,6 +22,22 @@ data:
 
 --- 
 
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongodb-local-pv
+  namespace: news-voyager
+spec:
+  capacity:
+    storage: 3Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /data/mongodb
+
+---
+
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -63,7 +79,6 @@ spec:
         name: mongo-storage
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: gp2
         resources:
           requests:
             storage: 3Gi
