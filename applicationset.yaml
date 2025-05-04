@@ -9,7 +9,7 @@ spec:
         elements:
           # Infrastructure
           - name: mongo
-            path: mongo-configs.yaml
+            path: db
             wave: "0"
           # Backend core
           - name: backend
