@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: sports
-          image: deepanshurawat6/microservices-sports:1.0.0-5
+          image: deepanshurawat6/microservices-sports:1.0.0-7
           resources:
             requests:
               cpu: 200m

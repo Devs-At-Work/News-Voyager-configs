@@ -12,11 +12,11 @@ spec:
         - setWeight: 20
         - pause: {}
         - setWeight: 40
-        - pause: { duration: 15 }
+        - pause: {duration: 15}
         - setWeight: 60
-        - pause: { duration: 15 }
+        - pause: {duration: 15}
         - setWeight: 80
-        - pause: { duration: 15 }
+        - pause: {duration: 15}
   revisionHistoryLimit: 2
   selector:
     matchLabels:
@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: health
-          image: deepanshurawat6/microservices-health:1.0.0
+          image: deepanshurawat6/microservices-health:1.0.0-7
           resources:
             requests:
               cpu: 200m
