@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: frontend-serivce
+  name: app-serivce
   namespace: argocd
 spec:
   project: default
 
   source:
-    repoURL: https://github.com/deepanshu-rawat6/flask-frontend-configs.git
+    repoURL: https://github.com/Devs-At-Work/News-Voyager-configs.git
     targetRevision: HEAD
     path: dev
   destination:
