@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: science
-          image: deepanshurawat6/microservices-science:1.0.0-9
+          image: deepanshurawat6/microservices-science:1.0.0-10
           resources:
             requests:
               cpu: 200m

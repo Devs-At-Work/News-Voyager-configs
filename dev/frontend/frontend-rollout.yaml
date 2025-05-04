@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: deepanshurawat6/frontend:1.0.0-9
+          image: deepanshurawat6/frontend:1.0.0-10
           resources:
             requests:
               cpu: 200m
