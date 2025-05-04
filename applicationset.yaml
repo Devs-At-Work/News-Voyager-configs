@@ -8,9 +8,9 @@ spec:
     - list:
         elements:
           # Infrastructure
-          # - name: mongo
-          #   path: mongo-configs.yaml
-          #   wave: "0"
+          - name: mongo
+            path: mongo-configs.yaml
+            wave: "0"
           # Backend core
           - name: backend
             path: backend
