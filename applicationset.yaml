@@ -1,0 +1,64 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: news-voyager
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          # Infrastructure
+          # - name: mongo
+          #   path: mongo-configs.yaml
+          #   wave: "0"
+          # Backend core
+          - name: backend
+            path: backend
+            wave: "1"
+          # Microservices layer
+          - name: microservices-general
+            path: microservices/general
+            wave: "2"
+          - name: microservices-business
+            path: microservices/business
+            wave: "2"
+          - name: microservices-entertainment
+            path: microservices/entertainment
+            wave: "2"
+          - name: microservices-health
+            path: microservices/health
+            wave: "2"
+          - name: microservices-science
+            path: microservices/science
+            wave: "2"
+          - name: microservices-sports
+            path: microservices/sports
+            wave: "2"
+          - name: microservices-technology
+            path: microservices/technology
+            wave: "2"
+          # Frontend (last to deploy)
+          - name: frontend
+            path: frontend
+            wave: "3"
+  template:
+    metadata:
+      name: "news-voyager-{{name}}"
+      namespace: argocd
+      annotations:
+        argocd.argoproj.io/sync-wave: "{{wave}}"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/Devs-At-Work/News-Voyager-configs.git
+        targetRevision: HEAD
+        path: dev/{{path}}
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: news-voyager
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          selfHeal: true
+          prune: true
