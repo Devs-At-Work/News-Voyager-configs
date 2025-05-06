@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: business
-          image: deepanshurawat6/microservices-business:1.0.0-13
+          image: deepanshurawat6/microservices-business:1.0.0-14
           resources:
             requests:
               cpu: 200m
