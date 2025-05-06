@@ -43,7 +43,7 @@ spec:
               value: "http://backend-rollout-service:3001"
           readinessProbe:
             httpGet:
-              path: /health/health
+              path: /health/healthcheck
               port: 3012
             initialDelaySeconds: 10
             periodSeconds: 5
