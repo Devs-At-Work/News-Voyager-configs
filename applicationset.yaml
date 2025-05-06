@@ -41,6 +41,9 @@ spec:
           - name: frontend
             path: frontend
             wave: "3"
+          - name: ingress
+            path: ingress
+            wave: "4"
   template:
     metadata:
       name: "news-voyager-{{name}}"
