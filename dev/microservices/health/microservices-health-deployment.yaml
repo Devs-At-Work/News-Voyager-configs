@@ -31,9 +31,3 @@ spec:
           env:
             - name: BACKEND_URL
               value: "http://backend-service:3001"
-          readinessProbe:
-            httpGet:
-              path: /health/healthcheck
-              port: 3012
-            initialDelaySeconds: 10
-            periodSeconds: 5
