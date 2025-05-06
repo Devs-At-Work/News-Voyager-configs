@@ -33,7 +33,7 @@ spec:
               value: "http://backend-service:3001"
           readinessProbe:
             httpGet:
-              path: /health
+              path: /business/health
               port: 3010
             initialDelaySeconds: 10
             periodSeconds: 5
