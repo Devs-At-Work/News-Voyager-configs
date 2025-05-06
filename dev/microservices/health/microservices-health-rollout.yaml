@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: health
-          image: deepanshurawat6/microservices-health:1.0.0-12
+          image: deepanshurawat6/microservices-health:1.0.0-13
           resources:
             requests:
               cpu: 200m
