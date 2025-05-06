@@ -1,0 +1,86 @@
+# Ingress for Main Services
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: news-voyager-ingress
+  namespace: news-voyager
+  annotations:
+    alb.ingress.kubernetes.io/scheme: "internet-facing"
+    alb.ingress.kubernetes.io/target-type: "ip"
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/group.name: "news-voyager-group"
+    alb.ingress.kubernetes.io/group.order: "1"
+    alb.ingress.kubernetes.io/healthcheck-protocol: "HTTP"
+    alb.ingress.kubernetes.io/healthcheck-port: "traffic-port"
+    alb.ingress.kubernetes.io/healthcheck-path: "/"
+    alb.ingress.kubernetes.io/healthcheck-interval-seconds: "15"
+    alb.ingress.kubernetes.io/healthcheck-timeout-seconds: "5"
+    alb.ingress.kubernetes.io/success-codes: "200-399"
+spec:
+  ingressClassName: alb
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-service
+            port:
+              number: 80
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: backend-service
+            port:
+              number: 3001
+      - path: /business
+        pathType: Prefix
+        backend:
+          service:
+            name: business-service
+            port:
+              number: 3010
+      - path: /entertainment
+        pathType: Prefix
+        backend:
+          service:
+            name: entertainment-service
+            port:
+              number: 3011
+      - path: /general
+        pathType: Prefix
+        backend:
+          service:
+            name: general-service
+            port:
+              number: 3016
+      - path: /health
+        pathType: Prefix
+        backend:
+          service:
+            name: health-service
+            port:
+              number: 3012
+      - path: /science
+        pathType: Prefix
+        backend:
+          service:
+            name: science-service
+            port:
+              number: 3013
+      - path: /sports
+        pathType: Prefix
+        backend:
+          service:
+            name: sports-service
+            port:
+              number: 3014
+      - path: /technology
+        pathType: Prefix
+        backend:
+          service:
+            name: technology-service
+            port:
+              number: 3015
