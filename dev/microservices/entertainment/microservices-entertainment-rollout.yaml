@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: entertainment
-          image: deepanshurawat6/microservices-entertainment:1.0.0-14
+          image: deepanshurawat6/microservices-entertainment:1.0.0-15
           resources:
             requests:
               cpu: 200m
